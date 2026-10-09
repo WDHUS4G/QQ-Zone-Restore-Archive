@@ -236,6 +236,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          shopt -s globstar
           mkdir -p nightly
           cp artifacts/windows/*.exe nightly/QzoneArchive-nightly_x64-setup.exe
           cp artifacts/macos-x64/*.dmg nightly/QzoneArchive-nightly_x64.dmg
@@ -244,7 +245,7 @@ jobs:
           cp artifacts/linux/deb/*.deb nightly/QzoneArchive-nightly_amd64.deb
           cp artifacts/linux/rpm/*.rpm nightly/QzoneArchive-nightly_x86_64.rpm
           cp artifacts/android/*.apk nightly/QzoneArchive-nightly-universal.apk
-          cp artifacts/ios-unsigned/*.ipa nightly/QzoneArchive-nightly-ios-arm64-unsigned.ipa
+          cp artifacts/ios-unsigned/**/*.ipa nightly/QzoneArchive-nightly-ios-arm64-unsigned.ipa
           cp artifacts/nixos/*.tar.gz nightly/qzonearchive-nixos-nightly-x86_64-linux.tar.gz
           ls -lh nightly
           gh release create nightly \
